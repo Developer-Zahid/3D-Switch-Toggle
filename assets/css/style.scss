@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 10px;
+    --midGreen: #68cd44;
+    --deepGreen: #4db72d;
+    --lightGreen: #75e644;
+    --midRed: #c84645;
+    --deepRed: #b74042;
+    --lightRed: #df4646;
+    @media (max-width:600px) {
+        font-size: 6px; 
+    }
+}
+
+$midGreen: var(--midGreen);
+$deepGreen: var(--deepGreen);
+$lightGreen: var(--lightGreen);
+$midRed: var(--midRed);
+$deepRed: var(--deepRed);
+$lightRed: var(--lightRed);
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    background: #e9ebff;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transform: skewY(-15deg);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+.title{
+    top: 20px;
+    left: 1em;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 8em;
+    color: #99999938;
+    transform-origin: bottom;
+    transform: skewX(30deg);
+    text-align: center;
+}
+.switch{
+    --width:32em;
+    position: relative;
+    display: flex;
+    width: var(--width);
+    height: 16em;
+    &__checkbox{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        -moz-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
+    &__common{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        width: calc(var(--width) / 2);
+        background: $midRed;
+        pointer-events: none;
+        &::after{
+            content: "";
+            position: absolute;
+            top: -9.95em;
+            left: 0;
+            width: 100%;
+            height: 10em;
+            background: $lightRed;
+            transform-origin: bottom;
+            transform: skewX(45deg);
+            z-index: -1;
+        }
+        &::before{
+            content: "";
+            position: absolute;
+            top: -9.95em;
+            left: -9.95em;
+            width: 10em;
+            height: 100%;
+            background: $deepRed;
+            transform-origin: left;
+            transform: skewY(45deg);
+            z-index: -1;
+        }
+    }
+    .switch__common,
+    .switch__common::after,
+    .switch__common::before{
+        transition: all .8s;
+    }
+    &__left{
+        z-index: 2;
+        left: 0;
+        animation: decrease .8s ease-in-out forwards;
+    }
+    &__right{
+        right: 0;
+        animation: increase .8s ease-in-out forwards;
+    }
+    &__checkbox:checked ~ {
+        .switch{
+            &__common{
+                background: $midGreen;
+                &::after{
+                    background: $lightGreen;
+                }
+                &::before{
+                    background: $deepGreen;
+                }
+            }
+            &__left{
+                animation: checked-decrease .8s ease-in-out forwards;
+            }
+            &__right{
+                animation: checked-increase .8s ease-in-out forwards;
+            }
+        }
+    }
+}
+@keyframes checked-decrease{
+    0% {
+		height: 16em;
+    }
+    50%,
+	100% {
+        height: 3em;
+    }
+    69% {
+		height: 5em;
+	}
+}
+@keyframes checked-increase{
+    0% {
+		height: 3em;
+    }
+	50%,
+	100% {
+        height: 16em;
+    }
+    69% {
+		height: 14em;
+	}
+}
+@keyframes decrease{
+    0% {
+		height: 3em;
+    }
+	50%,
+	100% {
+        height: 16em;
+    }
+    69% {
+		height: 14em;
+	}
+}
+@keyframes increase{
+    0% {
+		height: 16em;
+    }
+	50%,
+	100% {
+        height: 3em;
+    }
+    69% {
+		height: 5em;
+	}
+}
